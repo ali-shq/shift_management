@@ -36,7 +36,7 @@
                         >
                         <span
                             class="block pt-1 text-sm text-gray-600 first-letter:uppercase"
-                            >{{ formattedDate(post) }} ago by
+                            >{{ formattedDate(post) }} by
                             {{ post.user.name }}</span
                         >
                     </Link>
@@ -55,7 +55,6 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Container from "@/Components/Container.vue";
 import Pagination from "@/Components/Pagination.vue";
 import { Link } from "@inertiajs/vue3";
-import { formatDistance, parseISO } from "date-fns";
 import { relativeDate } from "@/Utilities/date.js";
 import PageHeading from "@/Components/PageHeading.vue";
 import Pill from "@/Components/Pill.vue";
