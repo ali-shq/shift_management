@@ -11,6 +11,10 @@
                 >{{ formattedDate }} by {{ post.user.name }}</span
             >
 
+            <div class="mt-4">
+                <span class="text-pink-500 font-bold">{{ post.likes_count }} likes</span>
+            </div>
+
             <article
                 class="prose prose-sm mt-6 max-w-none"
                 v-html="post.html"
