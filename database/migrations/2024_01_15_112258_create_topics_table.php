@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('posts', function (Blueprint $table) {

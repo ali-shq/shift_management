@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 
-class Post extends Model
+class Post extends BaseModel
 {
     use ConvertsMarkdownToHtml;
     use HasFactory;

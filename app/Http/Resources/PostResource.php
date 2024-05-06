@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Number;
 
-class PostResource extends JsonResource
+class PostResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,8 @@ class PostResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $data = [
             'id' => $this->id,
-            'user' => UserResource::make($this->whenLoaded('user')),
-            'topic' => TopicResource::make($this->whenLoaded('topic')),
             'title' => $this->title,
             'body' => $this->body,
             'html' => $this->html,
@@ -29,5 +27,7 @@ class PostResource extends JsonResource
                 'show' => $this->showRoute(),
             ],
         ];
+        $this->addRelations($data);
+        return $data;
     }
 }

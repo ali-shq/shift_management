@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 
-class TopicResource extends BaseResource
+class SkillResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -13,11 +13,12 @@ class TopicResource extends BaseResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $data = [
             'id' => $this->id,
-            'slug' => $this->slug,
             'name' => $this->name,
             'description' => $this->description,
         ];
+        $this->addTimeStamps($data);
+        return $data;
     }
 }
