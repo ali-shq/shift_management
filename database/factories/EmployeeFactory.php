@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,9 +19,9 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->firstName($gender = ['male', 'female'][array_rand(['male', 'female'])]),
-            'surname' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'name' => $fname = $this->faker->firstName($gender = ['male', 'female'][array_rand(['male', 'female'])]),
+            'surname' => $sname = $this->faker->lastName(),
+            'email' => strtolower("$fname.$sname@example.com"),
             'phone' => $this->faker->unique()->phoneNumber(),
             'is_active' => $this->faker->boolean(90),
             'gender' => $gender,

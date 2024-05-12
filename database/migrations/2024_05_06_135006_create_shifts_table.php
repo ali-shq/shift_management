@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->string('label');
+            $table->string('label')->unique();
             $table->time('starts_at');
             $table->time('ends_at');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

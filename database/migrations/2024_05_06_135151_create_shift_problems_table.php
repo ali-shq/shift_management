@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->dateTime('start_date_time');
             $table->dateTime('end_date_time');
+            $table->json('all_places')->default('{}');
+            $table->json('all_employees')->default('{}');
             $table->timestamps();
             $table->softDeletes();
         });
