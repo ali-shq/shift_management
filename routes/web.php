@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
@@ -38,6 +39,9 @@ Route::middleware([
 
     Route::resource('posts', PostController::class)->only(['create', 'store']);
     Route::resource('posts.comments', CommentController::class)->shallow()->only(['store', 'update', 'destroy']);
+
+    Route::post('/likes/{type}/{id}', [LikeController::class, 'store'])->name('likes.store');
+    Route::delete('/likes/{type}/{id}', [LikeController::class, 'destroy'])->name('likes.destroy');
 });
 
 Route::get('posts/{topic?}', [PostController::class, 'index'])->name('posts.index');

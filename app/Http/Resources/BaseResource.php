@@ -16,7 +16,7 @@ class BaseResource extends JsonResource
     {
         $policies = array_flip($policies ?? ['delete', 'update']);
         array_walk($policies, fn (&$val, $policy) => $val = $request->user()?->can($policy, $this->resource));
-        $array['can'] = $policies;
+        $array['can'] = array_merge($array['can'] ?? [], $policies);
     }
 
 
