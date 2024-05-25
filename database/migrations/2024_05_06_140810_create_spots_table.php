@@ -21,8 +21,10 @@ return new class extends Migration
             $table->foreignIdFor(Place::class);
             $table->foreignIdFor(Shift::class);
             $table->dateTime('start_date_time');//so a spot is only for a day, needed for availablity and absences
+            $table->dateTime('end_date_time')->nullable();//from the shift this can be deduced but may be needed for quick access
             $table->foreignIdFor(Employee::class)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

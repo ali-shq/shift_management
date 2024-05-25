@@ -14,4 +14,9 @@ class Place extends Model
     {
         return $this->belongsToMany(Shift::class);
     }
+
+    public function skills(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class)->as('needed_employees')->withPivot(['needed_employees']);
+    }
 }

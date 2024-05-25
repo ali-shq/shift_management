@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Place;
+use App\Models\Shift;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,12 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('places', function (Blueprint $table) {
+        Schema::create('place_shift', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            // $table->string('week_working_days')->default('1111111');
-            $table->boolean('is_active')->default(true);
+            $table->foreignIdFor(Shift::class);
+            $table->foreignIdFor(Place::class);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('places');
+        Schema::dropIfExists('shifts_places');
     }
 };

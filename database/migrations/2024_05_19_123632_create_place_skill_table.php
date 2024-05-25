@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Place;
-use App\Models\Shift;
+use App\Models\Skill;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shifts_places', function (Blueprint $table) {
+        Schema::create('place_skill', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Shift::class);
             $table->foreignIdFor(Place::class);
+            $table->foreignIdFor(Skill::class);
+            $table->integer('needed_employees');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shifts_places');
+        Schema::dropIfExists('skill_place');
     }
 };

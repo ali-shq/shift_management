@@ -30,8 +30,7 @@ class DatabaseSeeder extends Seeder
         $skills = Skill::all();
 
         $this->call(ShiftSeeder::class);
-        $shifts = Shift::all();
-
+        $shifts = Shift::orderBy('id')->get();
         $employees = Employee::factory(700)->create();
 
         foreach ($employees as $employee) {
@@ -42,10 +41,17 @@ class DatabaseSeeder extends Seeder
 
         $places = Place::factory(8)->create();
 
-        foreach ($employees as $employee) {
-            $employee->skills()->attach($skills->random(1)->first()->id);
-            if (7 == rand(1,10))            
-                $employee->skills()->attach($skills->random(1)->last()->id);
+        foreach ($places as $place) {
+            foreach ($shifts as $shift) {
+                if ($shift->id == 3 && rand(1,3) != 1) {
+                    continue;
+                }
+                $place->shifts()->attach($shift->id);
+            }
+            foreach ($skills as $skill) {
+                $place->skills()->attach($skill->id, ['needed_employees' => rand(5,10)]);
+            }
+            // var_dump($place);die();
         }
 
         $posts = Post::factory(200)

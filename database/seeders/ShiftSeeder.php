@@ -15,11 +15,6 @@ class ShiftSeeder extends Seeder
         $data = [
             [
                 'label'     => 'Morning',
-                'starts_at' => '08:00',
-                'ends_at'   => '16:00',
-            ],
-            [
-                'label'     => 'Morning',
                 'starts_at' => '06:00',
                 'ends_at'   => '14:00',
             ],
@@ -27,7 +22,13 @@ class ShiftSeeder extends Seeder
                 'label'     => 'Evening',
                 'starts_at' => '14:00',
                 'ends_at'   => '22:00',
-            ],    
+            ],
+            [
+                'label'     => 'Night',
+                'starts_at' => '22:00',
+                'ends_at'   => '06:00',
+            ],
+                
         ];
 
         Shift::upsert($data, ['label']);

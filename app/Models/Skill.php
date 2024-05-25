@@ -13,4 +13,9 @@ class Skill extends BaseModel
     {
         return $this->belongsToMany(Employee::class);
     }
+
+    public function places(): BelongsToMany 
+    {
+        return $this->belongsToMany(Place::class);
+    }
 }
