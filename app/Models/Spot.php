@@ -28,6 +28,11 @@ class Spot extends BaseModel
         return $this->hasOne(Place::class);
     }
 
+    public function skill(): HasOne 
+    {
+        return $this->hasOne(Skill::class);
+    }
+
     public function shiftProblem(): BelongsTo 
     {
         return $this->belongsTo(ShiftProblem::class);

@@ -3,11 +3,13 @@
 namespace App\ShiftProblem;
 
 use App\Models\BaseModel;
+use App\Models\Spot;
 
 Class SkilledEntity
 {
+    use ModelAccessor;
+
     public $default_available = true;
-    public $skills_set = [];
     public $static_availability_rule;
     public $static_preference_rule;
     // public $skill_set_rules = []; //what is provided, what skills are available
@@ -15,31 +17,31 @@ Class SkilledEntity
     public $dynamic_preference_rule;
 
     protected bool $placed = false;
+    protected bool $tentatively_un_placed = false;
 
-    public function __construct(protected BaseModel $model)
+    public $all_spots = [];
+
+    public function __construct(BaseModel $model)
     {
+        $this->_new($model);
     }
 
-    public function __get($name)
+    public function doesFit(Spot $spot): bool
     {
-        if (property_exists($this->model, $name)) {
-            return $this->model->name;
+        return in_array($spot->skill->id, $this->skills->pluck('id'));
+    }
+
+    //doing the simple version? like an employee can be placed in only one spot, 
+    //if we do otherwise, it becomes difficult to track
+    public function isAvailable(Spot $spot): bool 
+    {
+        if ($this->tentatively_un_placed) {
+            return true;
         }
-    }
 
-    public function __set($name, $value)
-    {
-        if (property_exists($this->model, $name)) {
-            $this->model->name = $value;
-        }
-    }
-
-    public function isAvailable($spot): bool 
-    {
         if ($this->placed) {
             return false;
         }
 
-        return true;
     }
 }

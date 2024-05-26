@@ -3,10 +3,17 @@
 namespace App\ShiftProblem;
 
 use App\Models\BaseModel;
+use BadMethodCallException;
 
 trait ModelAccessor
 {
     protected BaseModel $model;
+
+    public function _new(BaseModel $model): self
+    {
+        $this->model = $model;
+        return $this;
+    }
 
     public function __get($name)
     {
@@ -22,8 +29,14 @@ trait ModelAccessor
         }
     }
 
-    public function save(array $options = []): bool
+    public function __call($name, $arguments)
     {
-        return $this->model->save($options);
+        if (method_exists($this->model, $name)) {
+            return $this->model->$name(...$arguments);
+        }
+
+        throw new BadMethodCallException(sprintf(
+            'Method %s::%s does not exist.', static::class, $name
+        ));
     }
 }
