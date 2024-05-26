@@ -5,26 +5,22 @@ namespace App\ShiftProblem;
 use App\Models\BaseModel;
 use App\Models\Spot;
 
-Class SkilledEntity
+abstract class SkilledEntity
 {
     use ModelAccessor;
 
-    public $default_available = true;
-    public $static_availability_rule;
-    public $static_preference_rule;
-    // public $skill_set_rules = []; //what is provided, what skills are available
-    public $dynamic_availability_rule;    
-    public $dynamic_preference_rule;
-
-    protected bool $placed = false;
-    protected bool $tentatively_un_placed = false;
-
-    public $all_spots = [];
+    public $spots_preference = [];
+    
+    //fixed fit and availabity
+    public array $fixed_spot_availability = [];
+    public array $spot_availability = [];
 
     public function __construct(BaseModel $model)
     {
         $this->_new($model);
     }
+
+
 
     public function doesFit(Spot $spot): bool
     {
@@ -35,13 +31,16 @@ Class SkilledEntity
     //if we do otherwise, it becomes difficult to track
     public function isAvailable(Spot $spot): bool 
     {
-        if ($this->tentatively_un_placed) {
-            return true;
-        }
-
-        if ($this->placed) {
+        //this part does not change
+        if (!$this->fixed_spot_availability[$spot->id]) {
             return false;
         }
 
+        return $this->spot_availability[$spot->id];
     }
+
+    abstract public function spotPreference(Spot $spot): int;
+    abstract public function fixedAvailability(Spot $spot): bool;
+    //isPlacement false = is removal after being placed
+    abstract public function updateAvailability(bool $isPlacement = true, Spot $changingSpot);
 }
