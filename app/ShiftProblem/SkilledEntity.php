@@ -5,22 +5,29 @@ namespace App\ShiftProblem;
 use App\Models\BaseModel;
 use App\Models\Spot;
 
-abstract class SkilledEntity
+abstract class SkilledEntity extends BaseModel
 {
     use ModelAccessor;
 
-    public $spots_preference = [];
+    public array $spots_preference = [];
+
+    public array $all_spots = [];
     
     //fixed fit and availabity
-    public array $fixed_spot_availability = [];
-    public array $spot_availability = [];
+    public array $fixed_spots_availability = [];
+    public array $spots_availability = [];
 
-    public function __construct(BaseModel $model)
+    public function prepareFixedSpotMappings() 
     {
-        $this->_new($model);
+        /** @var \App\Models\Spot $spot */
+        foreach ($this->all_spots as $spot) {
+            $doesFit = $this->doesFit($spot);
+            $this->fixed_spots_availability[$spot->id] = $doesFit;
+            if ($doesFit) {
+                $this->fixed_spots_preference[$spot->id] = $this->fixedSpotPreference($spot);
+            }
+        }
     }
-
-
 
     public function doesFit(Spot $spot): bool
     {
@@ -39,8 +46,9 @@ abstract class SkilledEntity
         return $this->spot_availability[$spot->id];
     }
 
-    abstract public function spotPreference(Spot $spot): int;
+    abstract public function fixedSpotPreference(Spot $spot): int;
     abstract public function fixedAvailability(Spot $spot): bool;
     //isPlacement false = is removal after being placed
     abstract public function updateAvailability(bool $isPlacement = true, Spot $changingSpot);
+    // abstract public function updatePreference(bool $isPlacement = true, Spot $changingSpot);
 }
