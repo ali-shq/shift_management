@@ -10,7 +10,9 @@
                 </p>
 
                 <menu class="flex space-x-1 mt-3 overflow-x-auto pb-2 pt-1">
-                    <li><Pill :href="route('posts.index')" :filled="! selectedTopic">All Posts</Pill></li>
+                    <li>
+                        <Pill :href="route('posts.index')" :filled="! selectedTopic">All Posts</Pill>
+                    </li>
                     <li v-for="topic in topics" :key="topic.id">
                         <Pill :href="route('posts.index', { topic: topic.slug })"
                               :filled="topic.id === selectedTopic?.id"
@@ -19,6 +21,16 @@
                         </Pill>
                     </li>
                 </menu>
+
+                <form @submit.prevent="search" class="mt-4">
+                    <div>
+                        <InputLabel for="query">Search</InputLabel>
+                        <div class="flex space-x-2 mt-1">
+                            <TextInput v-model="searchForm.query" class="w-full" id="query"/>
+                            <SecondaryButton type="submit">Search</SecondaryButton>
+                        </div>
+                    </div>
+                </form>
             </div>
             <ul class="mt-4 divide-y">
                 <li
@@ -32,11 +44,11 @@
                     >
                         <span
                             class="text-lg font-bold group-hover:text-indigo-500"
-                            >{{ post.title }}</span
+                        >{{ post.title }}</span
                         >
                         <span
                             class="block pt-1 text-sm text-gray-600 first-letter:uppercase"
-                            >{{ formattedDate(post) }} by
+                        >{{ formattedDate(post) }} by
                             {{ post.user.name }}</span
                         >
                     </Link>
@@ -46,7 +58,7 @@
                 </li>
             </ul>
 
-            <Pagination :meta="posts.meta" :only="['posts']" class="mt-2" />
+            <Pagination :meta="posts.meta" :only="['posts']" class="mt-2"/>
         </Container>
     </AppLayout>
 </template>
@@ -54,12 +66,21 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Container from "@/Components/Container.vue";
 import Pagination from "@/Components/Pagination.vue";
-import { Link } from "@inertiajs/vue3";
-import { relativeDate } from "@/Utilities/date.js";
+import {Link, useForm} from "@inertiajs/vue3";
+import {relativeDate} from "@/Utilities/date.js";
 import PageHeading from "@/Components/PageHeading.vue";
 import Pill from "@/Components/Pill.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
-defineProps(["posts", "topics", "selectedTopic"]);
+const props = defineProps(["posts", "topics", "selectedTopic", "query"]);
 
 const formattedDate = (post) => relativeDate(post.created_at);
+
+const searchForm = useForm({
+    query: props.query,
+});
+
+const search = () => searchForm.get(route('posts.index'));
 </script>
