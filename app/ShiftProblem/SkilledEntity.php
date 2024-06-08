@@ -7,7 +7,7 @@ use App\Models\Spot;
 
 abstract class SkilledEntity extends BaseModel
 {
-    use ModelAccessor;
+    // use ModelAccessor;
 
     public array $spots_preference = [];
 
@@ -49,6 +49,6 @@ abstract class SkilledEntity extends BaseModel
     abstract public function fixedSpotPreference(Spot $spot): int;
     abstract public function fixedAvailability(Spot $spot): bool;
     //isPlacement false = is removal after being placed
-    abstract public function updateAvailability(bool $isPlacement = true, Spot $changingSpot);
+    abstract public function updateAvailability(Spot $changingSpot, bool $isPlacement = true);
     // abstract public function updatePreference(bool $isPlacement = true, Spot $changingSpot);
 }
