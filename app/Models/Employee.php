@@ -21,7 +21,7 @@ class Employee extends SkilledEntity
         return true;
     }
 
-    public function updateAvailability(bool $isPlacement = true, Spot $changingSpot)
+    public function updateAvailability(Spot $changingSpot, bool $isPlacement = true)
     {
         
     }
