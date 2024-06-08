@@ -20,7 +20,7 @@ abstract class BaseModel extends Model
 
     public function getPlural(bool $lowerCase = false): string 
     {
-        $plural = Str::plural(static::class);
+        $plural = Str::plural(class_basename(static::class));
 
         if ($lowerCase) {
             return Str::lower($plural);            
