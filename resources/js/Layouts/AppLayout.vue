@@ -39,6 +39,11 @@ const menu = [
         when: () => usePage().props.auth.user,
     },
     {
+        name: "Skills",
+        url: route("skills.index"),
+        route: "skills.index",
+    },
+    {
         name: "Posts",
         url: route("posts.index"),
         route: "posts.index",

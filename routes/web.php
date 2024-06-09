@@ -38,7 +38,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('skills', SkillController::class);
+    Route::resource('skills', SkillController::class)->except(['get']);
+    Route::get('skills/{skill}/{slug}', [SkillController::class, 'show'])->name('skills.show');
+
     
     Route::resource('posts', PostController::class)->only(['create', 'store']);
     Route::resource('posts.comments', CommentController::class)->shallow()->only(['store', 'update', 'destroy']);

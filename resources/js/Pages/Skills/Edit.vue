@@ -1,9 +1,9 @@
 <template>
-    <AppLayout title="Add a Skill">
+    <AppLayout title="Edit Skill">
         <Container>
-            <PageHeading>Add a Skill</PageHeading>
+            <PageHeading>Edit Skill {{ props.skill.name }}</PageHeading>
 
-            <form @submit.prevent="createSkill" class="mt-6">
+            <form @submit.prevent="updateSkill" class="mt-6">
                 <div>
                     <InputLabel for="name" class="sr-only">Name</InputLabel>
                     <TextInput
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <PrimaryButton type="submit">Add Skill</PrimaryButton>
+                    <PrimaryButton type="submit">Edit Skill</PrimaryButton>
                 </div>
             </form>
         </Container>
@@ -57,14 +57,14 @@ import MarkdownEditor from "@/Components/MarkdownEditor.vue";
 import { isInProduction } from "@/Utilities/environment.js";
 import PageHeading from "@/Components/PageHeading.vue";
 
-// const props = defineProps(['topics']);
+const props = defineProps(['skill']);
 
 const form = useForm({
-    name: "",
+    name: props.skill.name,
     // topic_id: props.topics[0].id,
-    description: "",
+    description: props.skill.description,
 });
 
-const createSkill = () => form.post(route("skills.store"));
+const updateSkill = () => form.put(route("skills.update", props.skill.id));
 
 </script>

@@ -42,13 +42,12 @@ abstract class BaseModel extends Model
 
     public function showRoute(array $parameters = [])
     {
-        return route($this->getPlural() . '.show', [$this, $this->name ? Str::slug($this->name) : $this->id, ...$parameters]);
+        return route($this->getPlural(true) . '.show', [$this->id, $this->name ? Str::slug($this->name) : $this->id, ...$parameters]);
     }
 
     public function getResourceName(): string 
     {
-        $resourceName = static::RESOURCE_NAMESPACE . '\\' . class_basename($this->model);
-
+        $resourceName = static::RESOURCE_NAMESPACE . '\\' . class_basename(static::class) . 'Resource';
         if (class_exists($resourceName)) {
             return $resourceName;
         }

@@ -17,6 +17,9 @@ class SkillResource extends BaseResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'routes' => [
+                'show' => $this->showRoute(),
+            ],
         ];
         $this->addTimeStamps($data);
         return $data;

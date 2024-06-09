@@ -103,6 +103,7 @@ class ResourceController extends BaseController
     {
         $model = $this->findResource($modelId);
 
+        
         if (! Str::endsWith($model->showRoute(), $request->path())) {
             return redirect($model->showRoute($request->query()), status: 301);
         }
@@ -110,11 +111,28 @@ class ResourceController extends BaseController
         if ($model->relations) {
             $model->load(...$model->relations);
         }
-
+        
         return inertia("$this->viewFolderName/Show", [
             Str::singular($this->resourceLabel) => fn () => $this->model->getResourceName()::make($model),
         ]);
     }
+
+    /**
+     * Display the view to edit the specified resource.
+     */
+    public function edit($modelId)
+    {
+        $model = $this->findResource($modelId);
+
+        if ($model->relations) {
+            $model->load(...$model->relations);
+        }
+        
+        return inertia("$this->viewFolderName/Edit", [
+            Str::singular($this->resourceLabel) => fn () => $this->model->getResourceName()::make($model),
+        ]);
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -123,10 +141,12 @@ class ResourceController extends BaseController
     {
         $data = $request->validate(array_intersect_key($this->validations, $request->all()));
 
-        $this->findResource($modelId)->update($data);
+        $model = $this->findResource($modelId);
 
-        return redirect($this->model->showRoute(['page' => $request->query('page')]))
-            ->banner($this->model . ' updated.');
+        $model->update($data);
+
+        return redirect($model->showRoute(['page' => $request->query('page')]))
+            ->banner(class_basename(get_class($this->model)) . ' was updated.');
     }
 
     /**
@@ -136,8 +156,8 @@ class ResourceController extends BaseController
     {
         $this->findResource($modelId)->delete();
     
-        return redirect($this->model->showRoute(['page' => $request->query('page')]))
-            ->banner(class_basename($this->model) . ' deleted.');
+        return redirect(route($this->resourceLabel.'.index'))
+            ->banner(class_basename(get_class($this->model)) . ' deleted.');
     }
 
     protected function findResource($modelId): BaseModel 

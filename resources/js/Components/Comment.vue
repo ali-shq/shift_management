@@ -36,8 +36,8 @@
                     </button>
                 </form>
                 <form
-                    v-if="comment.can?.delete"
-                    @submit.prevent="$emit('delete', comment.id)"
+
+                    @submit.prevent="$emit('delete', skill.id)"
                 >
                     <button
                         class="font-mono text-xs text-red-700 hover:font-semibold"

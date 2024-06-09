@@ -6,6 +6,14 @@
                     v-text="'All Skills'"
                 />
                 <menu class="flex space-x-1 mt-3 overflow-x-auto pb-2 pt-1">
+                    <Link
+                        :href="route('skills.create')"
+                        class="group block px-2 py-4"
+                    >
+                    <SecondaryButton>
+                        Add new Skill
+                    </SecondaryButton>
+                </Link>
                 </menu>
 
                 <form @submit.prevent="search" class="mt-4">
@@ -23,8 +31,8 @@
                 <li
                     v-for="skill in skills.data"
                     :key="skill.id"
-                    class="flex flex-col items-baseline justify-between md:flex-row"
-                >
+                    class="flex flex-col items-baseline justify-between md:flex-row">
+                    <!-- <pre>{{skill}}</pre> -->
                     <Link
                         :href="skill.routes.show"
                         class="group block px-2 py-4"
@@ -33,9 +41,15 @@
                             class="text-lg font-bold group-hover:text-indigo-500"
                         >{{ skill.name }}</span
                         >
+
+                        <span
+                            class="text-lg font-bold group-hover:text-indigo-500 ml-2"
+                        >| {{ skill.description }}</span
+                        >
+                        
                         <span
                             class="block pt-1 text-sm text-gray-600 first-letter:uppercase"
-                        >{{ formattedDate(skill) }}
+                        >{{ skill.created_at }}
                         </span>
                     </Link>
                 </li>
@@ -52,12 +66,12 @@ import Pagination from "@/Components/Pagination.vue";
 import {Link, useForm, usePage} from "@inertiajs/vue3";
 import {relativeDate} from "@/Utilities/date.js";
 import PageHeading from "@/Components/PageHeading.vue";
-import Pill from "@/Components/Pill.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 
+const props = defineProps(["skills", "query"]);
 
 const formattedDate = (skill) => relativeDate(skill.created_at);
 
