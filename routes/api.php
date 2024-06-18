@@ -14,3 +14,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/word', function () {
+
+    $q = request()->input('q');
+
+    $n = 15;
+
+    $max = 5000;
+
+    $i = 0;
+
+    $words = [];
+
+    while(count($words) < $n && $i++ < $max) {
+
+        if (
+            str_starts_with($word = fake()->country(), ucfirst($q)) && 
+            !in_array($word, $words)
+        ) {
+            $words[] = $word;
+        }
+    }
+
+
+    return response()->json($words);
+});
