@@ -54,7 +54,7 @@ class ResourceController extends BaseController
             ->when(
                 $request->query('query'),
                 fn (Builder $query) => $query->whereAny(
-                    $this->model->getSearchFiels(), 'like', '%' . $request->query('query') . '%'
+                    $this->model->getSearchFields(), 'like', '%' . $request->query('query') . '%'
                     )
             )
             ->latest()
