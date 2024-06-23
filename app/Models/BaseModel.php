@@ -54,4 +54,23 @@ abstract class BaseModel extends Model
 
         return static::RESOURCE_NAMESPACE . '\\BaseResource';
     }
+
+    public function create($data) 
+    {
+        $relationsDataByKey = [];
+        //TODO extract as method as usable for update as well
+        foreach ($data as $key => $value) {
+            if ($this->isRelation($key)) {
+                $relationsDataByKey[$key] = $value;
+                unset($data[$key]);
+            }
+        }
+
+        $created = parent::create($data);
+
+        //TODO see cases with multiples, and sync for pivot
+        foreach ($relationsDataByKey as $relation => $data) {
+            $created->$relation->create($data);
+        }
+    }
 }

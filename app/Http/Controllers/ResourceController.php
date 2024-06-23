@@ -27,6 +27,8 @@ class ResourceController extends BaseController
 
     protected array $validations = [];
 
+    protected array $withRelations = [];
+
     public function __construct()
     {
         $this->model = $this->getModel();
@@ -50,7 +52,7 @@ class ResourceController extends BaseController
      */
     public function index(Request $request)
     {
-        $models = $this->model
+        $models = $this->model->with($this->withRelations)
             ->when(
                 $request->query('query'),
                 fn (Builder $query) => $query->whereAny(
