@@ -91,7 +91,9 @@ class ResourceController extends BaseController
      */
     public function store(Request $request)
     {
-        $data = $request->validate($this->validations);
+        $request->validate($this->validations);
+
+        $data = $request->all();
         
         $model = $this->model->create($data);
 
