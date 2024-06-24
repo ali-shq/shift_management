@@ -35,6 +35,9 @@ class SkillSeeder extends Seeder
             ]
         ];
 
-        Skill::upsert(array_map(fn($row) => [...$row, 'is_active' => true], $data), ['name']);
+        foreach (array_map(fn($row) => [...$row, 'is_active' => true, 'updated_at' => now(), 'created_at' => now()], $data) as $row) {
+            Skill::updateOrInsert($row, ['name' => $row['name']]);
+        }
+
     }
 }

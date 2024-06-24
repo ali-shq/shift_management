@@ -62,12 +62,12 @@ abstract class BaseModel extends Model
 
         foreach ($relationsDataByKey as $relation => $relationData) {
             if (method_exists($created->$relation(), 'attach')) {
-                $created->$relation->attach($relationData);
+                $created->$relation()->attach($relationData);
                 continue;
             }
 
             foreach ($relationData as $row) {
-                $created->$relation->create($row);
+                $created->$relation()->create($row);
             }
         }
 

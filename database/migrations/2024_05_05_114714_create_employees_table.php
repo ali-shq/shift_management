@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->enum('gender', ['male', 'female']);
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

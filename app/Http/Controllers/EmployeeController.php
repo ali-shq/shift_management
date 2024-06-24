@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BaseModel;
-use App\Models\Employee;
-use Illuminate\Http\Request;
-
 class EmployeeController extends ResourceController
 {
+    protected array $validations = [
+        'name' => 'required|string|min:2|max:40',
+        'surname' => 'string|min:2|max:40',
+        'email' => 'email',
+        'gender' => 'required|in:male,female'
+    ];
+
     protected array $withRelations = ['skills', 'employments'];
 }
