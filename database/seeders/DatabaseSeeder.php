@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Comment;
 use App\Models\Employee;
+use App\Models\Employment;
 use App\Models\Like;
 use App\Models\Place;
 use App\Models\Post;
@@ -31,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ShiftSeeder::class);
         $shifts = Shift::orderBy('id')->get();
-        $employees = Employee::factory(700)->create();
+        $employees = Employee::factory(700)->has(Employment::factory())->create();    
 
         foreach ($employees as $employee) {
             $employee->skills()->attach($skills->random(1)->first()->id);
