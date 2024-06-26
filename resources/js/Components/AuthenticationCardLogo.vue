@@ -4,6 +4,6 @@ import { Link } from "@inertiajs/vue3";
 
 <template>
     <Link :href="'/'">
-        <img src="/assets/framerate-analog.svg" />
+        <img src="/assets/shift-facile.svg" />
     </Link>
 </template>
