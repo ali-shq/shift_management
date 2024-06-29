@@ -1,3 +1,3 @@
 <template>
-    <img src="/assets/symbol-analog.png" />
+    <img src="/assets/shift-facile-no-text-icon.png" />
 </template>

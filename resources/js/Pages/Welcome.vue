@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
-
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
@@ -10,12 +10,12 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="ShiftFacile" />
 
     <div
-        class="relative min-h-screen bg-center selection:bg-green-500 selection:text-white  sm:flex sm:items-center sm:justify-center"
+        class="relative min-h-screen bg-center selection:bg-green-500 selection:text-white sm:flex sm:items-center sm:justify-center"
     >
-    <div
+        <div
             v-if="canLogin"
             class="z-10 p-6 text-right sm:fixed sm:right-0 sm:top-0"
         >
@@ -43,19 +43,16 @@ defineProps({
         </div>
 
         <div class="mx-auto max-w-7xl p-6 lg:p-8">
-            
-
+            <ApplicationLogo />
         </div>
     </div>
 </template>
 
 <style>
 .bg-dots-darker {
-  
 }
 @media (prefers-color-scheme: dark) {
     .dark\:bg-dots-lighter {
-        
-       }
+    }
 }
 </style>

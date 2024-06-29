@@ -1,3 +1,3 @@
 <template>
-    <img src="/assets/framerate-analog.svg" />
+    <img src="/assets/shift-facile.svg" />
 </template>
