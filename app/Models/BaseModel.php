@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 abstract class BaseModel extends Model
 {
@@ -62,7 +63,7 @@ abstract class BaseModel extends Model
 
         foreach ($relationsDataByKey as $relation => $relationData) {
             if (method_exists($created->$relation(), 'attach')) {
-                $created->$relation()->attach($relationData);
+                $created->$relation()->attach($this->prepareAttachData($relationData, $created->$relation()));
                 continue;
             }
 
@@ -71,7 +72,22 @@ abstract class BaseModel extends Model
             }
         }
 
+        //TODO load the relations data or get them from above
+
         return $created;
+    }
+
+    //TODO add update case
+
+    protected function prepareAttachData($data, Relation $relation): array
+    {
+        $attachData = [];
+        foreach ($data as $row) {
+            $id = $row['id'];
+            unset($row['id']);
+            $attachData[$id] = $row;
+        }
+        return $attachData;
     }
 
     protected function getRelationsData(&$data) 
