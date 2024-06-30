@@ -10,8 +10,8 @@ defineProps({
 </script>
 
 <template>
-    <Head title="ShiftFacile" />
-
+    <Head title="ShiftFacile"  />
+    <AppLayout>
     <div
         class="relative min-h-screen bg-center selection:bg-green-500 selection:text-white sm:flex sm:items-center sm:justify-center"
     >
@@ -46,13 +46,9 @@ defineProps({
             <ApplicationLogo />
         </div>
     </div>
+</AppLayout>
 </template>
 
 <style>
-.bg-dots-darker {
-}
-@media (prefers-color-scheme: dark) {
-    .dark\:bg-dots-lighter {
-    }
-}
+
 </style>
