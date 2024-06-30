@@ -63,7 +63,7 @@ abstract class BaseModel extends Model
 
         foreach ($relationsDataByKey as $relation => $relationData) {
             if (method_exists($created->$relation(), 'attach')) {
-                $created->$relation()->attach($this->prepareAttachData($relationData, $created->$relation()));
+                $created->$relation()->attach($this->prepareAttachData($relationData));
                 continue;
             }
 
@@ -71,15 +71,55 @@ abstract class BaseModel extends Model
                 $created->$relation()->create($row);
             }
         }
-
-        //TODO load the relations data or get them from above
-
         return $created;
     }
 
-    //TODO add update case
+    public function update($attributes = [], $options = []): bool
+    {
+        $relationsDataByKey = $this->getRelationsData($data);
+        
+        $wasSaved = parent::update($attributes, $options);
+        
+        foreach ($relationsDataByKey as $relation => $relationData) {
+            if (method_exists($this->$relation(), 'sync')) {
+                $this->$relation()->sync($this->prepareAttachData($relationData));
+                continue;
+            }
+            $this->updateRelationData($this->$relation(), $relationData);
+        }
+        return $wasSaved;
+    }
 
-    protected function prepareAttachData($data, Relation $relation): array
+    protected function updateRelationData(Relation $relation, array $newData) 
+    {
+        $oldData = $relation->get();
+
+        $updatedIds = [];
+        //make updates
+        foreach ($newData as $ind => $row) {
+            if (isset($row['id'])) {
+                $oldRow = $oldData->find($row['id']);
+                if ($oldRow) {
+                    $oldRow->update($row);
+                    $updatedIds[$row['id']] = true;
+                    unset($newData[$ind]);
+                }
+            }
+        }
+
+        //make inserts
+        $relation->insert(array_values($newData));
+
+        //make deletes
+        foreach ($oldData as $row) {
+            if (!isset($updatedIds[$row['id']])) {
+                $row->delete();
+            }
+        }
+    }
+
+
+    protected function prepareAttachData($data): array
     {
         $attachData = [];
         foreach ($data as $row) {

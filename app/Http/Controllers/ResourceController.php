@@ -97,6 +97,8 @@ class ResourceController extends BaseController
         
         $model = $this->model->create($data);
 
+        $model->load($this->withRelations);
+
         return redirect($model->showRoute());
     }
 
