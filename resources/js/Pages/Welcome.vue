@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
