@@ -48,18 +48,31 @@ defineProps({
                                 >
 
                                 <template v-else>
+
+                                    
+                                    <button
+                                        class="group mb-2 me-2 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-600 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-200 group-hover:from-green-400 group-hover:to-blue-600 dark:text-white dark:focus:ring-green-800"
+                                    >
+                                        <span
+                                            class="relative rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900"
+                                        >
+                                            Let's Talk
+                                        </span>
+                                    </button>
                                     <Link
                                         :href="route('login')"
-                                        class="font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-green-500 dark:text-green-400 dark:hover:text-black"
+                                        class="font-semibold text-gray-600 outline hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-green-500 dark:text-green-400 dark:hover:text-black"
                                         >Log in</Link
                                     >
 
-                                    <Link
+                                    <!-- <Link
                                         v-if="canRegister"
                                         :href="route('register')"
                                         class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-green-400 dark:hover:text-black"
                                         >Register</Link
-                                    >
+                                    > -->
+                                  
+
                                 </template>
                             </div>
                         </div>
@@ -69,7 +82,7 @@ defineProps({
         </div>
         <!-- hero section -->
 
-        <div><HeroSection /></div>
+        <div class="pt-16"><HeroSection /></div>
     </div>
 
     <!-- <div
