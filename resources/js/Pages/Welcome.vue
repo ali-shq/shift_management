@@ -82,7 +82,7 @@ defineProps({
         </div>
         <!-- hero section -->
 
-        <div class="pt-16"><HeroSection /></div>
+        <div ><HeroSection /></div>
     </div>
 
     <!-- <div
