@@ -42,11 +42,13 @@ const menu = [
         name: "Skills",
         url: route("skills.index"),
         route: "skills.index",
+        when: () => usePage().props.auth.user
     },
     {
         name: "Posts",
         url: route("posts.index"),
         route: "posts.index",
+        when: () => usePage().props.auth.user
     },
     {
         name: "Create a Post",
@@ -182,9 +184,15 @@ const menu = [
                                     </template>
                                 </Dropdown>
                             </div>
+
+
+<!-- 
                             <div v-else>
                                 <Link :href="route('login')"> Login </Link>
-                            </div>
+                            </div> -->
+
+
+
                         </div>
 
                         <!-- Hamburger -->
@@ -238,7 +246,7 @@ const menu = [
                     }"
                     class="sm:hidden"
                 >
-                    <div class="space-y-1 pb-3 pt-2">
+                    <div v-if="$page.props.auth.user" class="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"

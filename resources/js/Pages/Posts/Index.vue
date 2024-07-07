@@ -1,4 +1,5 @@
 <template>
+     <Head title="Posts"/>
     <AppLayout>
         <Container>
             <div>
@@ -67,7 +68,7 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Container from "@/Components/Container.vue";
 import Pagination from "@/Components/Pagination.vue";
-import {Link, useForm, usePage} from "@inertiajs/vue3";
+import {Link, useForm, usePage, Head} from "@inertiajs/vue3";
 import {relativeDate} from "@/Utilities/date.js";
 import PageHeading from "@/Components/PageHeading.vue";
 import Pill from "@/Components/Pill.vue";
