@@ -11,6 +11,8 @@ class Employee extends SkilledEntity
 {
     use HasFactory;
 
+    protected $searchFields = ['name', 'surname', 'email', 'gender', 'phone'];
+
     public function fixedSpotPreference(Spot $spot): int
     {
         return 1;

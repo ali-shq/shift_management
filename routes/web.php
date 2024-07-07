@@ -3,7 +3,9 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SkillController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -38,11 +40,13 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('skills', SkillController::class)->except(['get']);
-    Route::get('skills/{skill}/{slug}', [SkillController::class, 'show'])->name('skills.show');
+    Route::resource('skills', SkillController::class);
+    // Route::resource('skills', SkillController::class)->except(['get']);
+    // Route::get('skills/{skill}/{slug}', [SkillController::class, 'show'])->name('skills.show');
 
-    Route::resource('employees', EmployeeController::class)->except(['get']);
-    Route::get('employees/{employee}/{slug}', [EmployeeController::class, 'show'])->name('employees.show');
+    Route::resource('employees', EmployeeController::class);
+    Route::resource('shifts', ShiftController::class);
+    Route::resource('places', PlaceController::class);
     
     Route::resource('posts', PostController::class)->only(['create', 'store']);
     Route::resource('posts.comments', CommentController::class)->shallow()->only(['store', 'update', 'destroy']);

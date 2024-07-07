@@ -97,7 +97,7 @@ class ResourceController extends BaseController
         
         $model = $this->model->create($data);
 
-        $model->load($this->withRelations);
+        // $model->load($this->withRelations);
 
         return redirect($model->showRoute());
     }
@@ -114,8 +114,8 @@ class ResourceController extends BaseController
             return redirect($model->showRoute($request->query()), status: 301);
         }
 
-        if ($model->relations) {
-            $model->load(...$model->relations);
+        if ($this->withRelations) {
+            $model->load($this->withRelations);
         }
         
         return inertia("$this->viewFolderName/Show", [
@@ -130,8 +130,8 @@ class ResourceController extends BaseController
     {
         $model = $this->findResource($modelId);
 
-        if ($model->relations) {
-            $model->load(...$model->relations);
+        if ($this->withRelations) {
+            $model->load($this->withRelations);
         }
         
         return inertia("$this->viewFolderName/Edit", [
@@ -145,7 +145,9 @@ class ResourceController extends BaseController
      */
     public function update(Request $request, $modelId)
     {
-        $data = $request->validate(array_intersect_key($this->validations, $request->all()));
+        $request->validate(array_intersect_key($this->validations, $request->all()));
+
+        $data = $request->all();
 
         $model = $this->findResource($modelId);
 

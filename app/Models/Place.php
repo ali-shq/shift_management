@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Place extends Model
+class Place extends BaseModel
 {
     use HasFactory;
+
+    protected $searchFields = ['name', 'address'];
 
     public function shifts(): BelongsToMany 
     {
@@ -17,6 +18,6 @@ class Place extends Model
 
     public function skills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class)->as('needed_employees')->withPivot(['needed_employees']);
+        return $this->belongsToMany(Skill::class)->withPivot(['needed_employees']);
     }
 }

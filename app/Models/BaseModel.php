@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 abstract class BaseModel extends Model
 {
+    protected bool $withSlug = false;
+
     protected const RESOURCE_NAMESPACE = 'App\Http\Resources';
 
     protected $addToGet = ['relations'];
@@ -16,6 +19,10 @@ abstract class BaseModel extends Model
 
     public function getSearchFields(): array 
     {
+        if ($this->searchFields == []) {
+            throw new Exception('Add at least one search field to use search, for the model: ' . class_basename(static::class));
+        }
+
         return $this->searchFields;
     }
 
@@ -43,7 +50,11 @@ abstract class BaseModel extends Model
 
     public function showRoute(array $parameters = [])
     {
-        return route($this->getPlural(true) . '.show', [$this->id, $this->name ? Str::slug($this->name) : $this->id, ...$parameters]);
+        $params = $this->withSlug ? [$this->id, ($this->name ? Str::slug($this->name) : $this->id)] : [$this->id];
+        return route(
+            $this->getPlural(true) . '.show', 
+            [...$params, ...$parameters]
+        );
     }
 
     public function getResourceName(): string 
@@ -59,6 +70,7 @@ abstract class BaseModel extends Model
     public function create($data): static
     {
         $relationsDataByKey = $this->getRelationsData($data);
+        unset($data['id']);
         $created = parent::create($data);
 
         foreach ($relationsDataByKey as $relation => $relationData) {
@@ -68,6 +80,8 @@ abstract class BaseModel extends Model
             }
 
             foreach ($relationData as $row) {
+                //model and relation are two unrelated classes?, strage a bit
+                unset($row['id']);
                 $created->$relation()->create($row);
             }
         }
@@ -76,8 +90,7 @@ abstract class BaseModel extends Model
 
     public function update($attributes = [], $options = []): bool
     {
-        $relationsDataByKey = $this->getRelationsData($data);
-        
+        $relationsDataByKey = $this->getRelationsData($attributes);    
         $wasSaved = parent::update($attributes, $options);
         
         foreach ($relationsDataByKey as $relation => $relationData) {
@@ -108,7 +121,9 @@ abstract class BaseModel extends Model
         }
 
         //make inserts
-        $relation->insert(array_values($newData));
+        foreach (array_values($newData) as $relationData) {
+            $relation->create($relationData);
+        }
 
         //make deletes
         foreach ($oldData as $row) {
@@ -124,8 +139,7 @@ abstract class BaseModel extends Model
         $attachData = [];
         foreach ($data as $row) {
             $id = $row['id'];
-            unset($row['id']);
-            $attachData[$id] = $row;
+            $attachData[$id] = $row['pivot'] ?? [];
         }
         return $attachData;
     }
