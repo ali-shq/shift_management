@@ -31,7 +31,7 @@ defineProps({
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link>
-                                    <ApplicationMark class="block h-9 w-auto" />
+                                    <ApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
@@ -50,7 +50,7 @@ defineProps({
                                 <template v-else>
 
                                     
-                                    <button
+                                    <!-- <button
                                         class="group mb-2 me-2 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-600 p-0.5 text-sm font-medium text-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-200 group-hover:from-green-400 group-hover:to-blue-600 dark:text-white dark:focus:ring-green-800"
                                     >
                                         <span
@@ -58,10 +58,10 @@ defineProps({
                                         >
                                             Let's Talk
                                         </span>
-                                    </button>
+                                    </button> -->
                                     <Link
                                         :href="route('login')"
-                                        class="font-semibold text-gray-600 outline hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-green-500 dark:text-green-400 dark:hover:text-black"
+                                        class="font-semibold text-gray-600 outline  rounded p-2 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-green-500 dark:text-green-400 dark:hover:text-black"
                                         >Log in</Link
                                     >
 

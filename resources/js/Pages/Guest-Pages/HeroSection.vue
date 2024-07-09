@@ -6,10 +6,10 @@ import { Link } from '@inertiajs/vue3';
 </script>
 <template>
     <!-- hero section goes here -->
-    <section class="bg-white dark:bg-gray-900 h-screen">
+    <section class="bg-white dark:bg-white-900 h-screen">
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 h-full">
         <div class="mr-auto place-self-center lg:col-span-7">
-            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none sm:text-5xl xl:text-6xl dark:text-white">Employee scheduling tool for your business</h1>
+            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none sm:text-5xl xl:text-6xl dark:text-fontColorPrimary">Employee scheduling tool for your business</h1>
             <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">From scheduling to complex adjustments and employee fair assign, ShiftFacile comes to help you.</p>
             <div class="flex flex-col sm:flex-row">
                 <Link :href="route('login')" class="inline-flex items-center justify-center px-5 py-3 mb-3 sm:mb-0 sm:mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
