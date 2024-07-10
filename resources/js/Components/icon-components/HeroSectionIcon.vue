@@ -1,4 +1,4 @@
 <template>
-    <img src="/assets/hero-section.svg" />
+    <img alt="time-and-checklist image"  src="/assets/hero-section.svg" />
 </template>
 
