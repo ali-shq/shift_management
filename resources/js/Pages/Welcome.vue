@@ -53,7 +53,7 @@ defineProps({
                                     </button> -->
                                     <Link
                                         :href="route('login')"
-                                        class="rounded p-2 font-semibold text-gray-600 outline hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-green-500 dark:text-green-400 dark:hover:text-black"
+                                        class="rounded p-2 font-semibold text-gray-600 outline hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-fontColorPrimary dark:text-fontColorPrimary dark:hover:text-fontColorSecondary"
                                         >Log in</Link
                                     >
 
