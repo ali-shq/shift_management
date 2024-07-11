@@ -11,6 +11,7 @@ import TextInput from "@/Components/TextInput.vue";
 defineProps({
     canResetPassword: Boolean,
     status: String,
+    canRegister: Boolean,
 });
 
 const form = useForm({
@@ -32,12 +33,15 @@ const submit = () => {
 <template>
     <Head title="Log in" />
 
-    <AuthenticationCard >
+    <AuthenticationCard>
         <template #logo>
             <AuthenticationCardLogo />
         </template>
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-fontColorPrimary">
+        <div
+            v-if="status"
+            class="mb-4 text-sm font-medium text-fontColorPrimary"
+        >
             {{ status }}
         </div>
 
@@ -68,22 +72,19 @@ const submit = () => {
                 />
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
-            <PrimaryButton
-                   
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </PrimaryButton>
-           
 
             <div class="my-4 flex items-center justify-between">
-                <div class=" block">
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ml-2 text-xs text-gray-600">Remember me</span>
-                </label>
-            </div>
+                <div class="block">
+                    <label class="flex items-center">
+                        <Checkbox
+                            v-model:checked="form.remember"
+                            name="remember"
+                        />
+                        <span class="ml-2 text-xs text-gray-600"
+                            >Remember me</span
+                        >
+                    </label>
+                </div>
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
@@ -91,7 +92,7 @@ const submit = () => {
                 >
                     Forgot your password?
                 </Link>
-                
+
                 <!-- <PrimaryButton
                     class="ml-4"
                     :class="{ 'opacity-25': form.processing }"
@@ -99,6 +100,25 @@ const submit = () => {
                 >
                     Log in
                 </PrimaryButton> -->
+            </div>
+            <PrimaryButton
+                :class="{ 'opacity-25': form.processing }"
+                :disabled="form.processing"
+            >
+                Log in
+            </PrimaryButton>
+
+            <div>
+                <span
+                    >Don't have an account yet?
+                    <Link
+                        
+                        :href="route('register')"
+                        class="rounded-md text-md text-blue-600 underline hover:text-fontColorSecondary focus:outline-none focus:ring-2 focus:ring-fontColorPrimary focus:ring-offset-2"
+                    >
+                        Register Now
+                    </Link></span
+                >
             </div>
         </form>
     </AuthenticationCard>
