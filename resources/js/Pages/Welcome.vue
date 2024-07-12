@@ -1,8 +1,9 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import NavigationDrawer from '@/Components/NavigationDrawer.vue';
 
 import { Head, Link } from "@inertiajs/vue3";
-
+import { ref} from 'vue'
 import HeroSection from "./Guest-Pages/HeroSection.vue";
 defineProps({
     canLogin: Boolean,
@@ -10,6 +11,10 @@ defineProps({
     laravelVersion: String,
     phpVersion: String,
 });
+let drawerOpen = ref(false);
+function toggleDrawer(){
+    drawerOpen.value = !drawerOpen.value;
+}
 </script>
 
 <template>
@@ -65,6 +70,11 @@ defineProps({
                                     > -->
                                 </template>
                             </div>
+
+                            <div>
+    <NavigationDrawer :isOpen="drawerOpen" @toggle-drawer="toggleDrawer" />
+    <button @click="toggleDrawer" class="p-4 bg-blue-500 text-white">Toggle Drawer</button>
+  </div>
                         </div>
                     </div>
                 </div>
