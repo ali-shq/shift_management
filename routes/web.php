@@ -6,7 +6,9 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\ShiftProblemController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\SpotController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -47,6 +49,8 @@ Route::middleware([
     Route::resource('employees', EmployeeController::class);
     Route::resource('shifts', ShiftController::class);
     Route::resource('places', PlaceController::class);
+    Route::resource('spots', SpotController::class);
+    Route::resource('shiftproblems', ShiftProblemController::class);
     
     Route::resource('posts', PostController::class)->only(['create', 'store']);
     Route::resource('posts.comments', CommentController::class)->shallow()->only(['store', 'update', 'destroy']);

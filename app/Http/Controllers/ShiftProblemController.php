@@ -2,64 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use App\Models\Place;
 use App\Models\ShiftProblem;
+use App\Models\Skill;
+use App\Models\Spot;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class ShiftProblemController extends Controller
+class ShiftProblemController extends ResourceController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected array $withRelations = ['spots'];
+
+    public function index(Request $request)
     {
-        //
+        $this->generateNew($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function generateNew(Request $request)
     {
-        //
-    }
+        $startDate = $request->input('start_date_time');
+        $endDate = $request->input('end_date_time');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $shiftProblem = new ShiftProblem(['start_date_time' => $startDate, 'end_date_time' => $endDate]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ShiftProblem $shiftProblem)
-    {
-        //
-    }
+        $shiftProblem->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ShiftProblem $shiftProblem)
-    {
-        //
-    }
+        $employees = Employee::getActive($startDate, $endDate);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ShiftProblem $shiftProblem)
-    {
-        //
-    }
+        $places = Place::with(['shifts', 'skills'])->whereIsActive(true)->get();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ShiftProblem $shiftProblem)
-    {
-        //
+        $spots = [];
+
+        foreach ($places as $place) {
+            foreach ($place->skills as $skill) {
+                foreach ($place->shifts as $shift) {
+                    $neededEmployees = $skill->pivot->needed_employees;
+                    while($neededEmployees-- > 0) {
+                        $spots[] = $shiftProblem->spots()->create([
+                            'shift_id' => $shift->id,
+                            'place_id' => $place->id,
+                            'skill_id' => $skill->id,
+                            'start_date_time' => $startDate,
+                            'end_date_time' => $endDate,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        $shiftProblem->all_employees = $employees->pluck('id')->toJson();
+        $shiftProblem->all_places = $places->pluck('id')->toJson();
+
+        $shiftProblem->save();
+        // var_dump($employees->count());
     }
 }
