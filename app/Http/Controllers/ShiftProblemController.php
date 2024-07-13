@@ -2,64 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\ShiftProblem;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class ShiftProblemController extends Controller
+class ShiftProblemController extends ResourceController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected array $withRelations = ['spots'];
+
+    public function index(Request $request)
     {
-        //
+        $this->generateNew($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function generateNew(Request $request)
     {
-        //
-    }
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $employees = Employee::getActive($startDate, $endDate);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ShiftProblem $shiftProblem)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ShiftProblem $shiftProblem)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ShiftProblem $shiftProblem)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ShiftProblem $shiftProblem)
-    {
-        //
+        // var_dump($employees->count());
     }
 }
