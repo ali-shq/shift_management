@@ -7,13 +7,11 @@ use App\Models\Spot;
 
 abstract class SkilledEntity extends BaseModel
 {
-    // use ModelAccessor;
 
     public array $spots_preference = [];
 
     public array $all_spots = [];
     
-    //fixed fit and availabity
     public array $fixed_spots_availability = [];
     public array $spots_availability = [];
 

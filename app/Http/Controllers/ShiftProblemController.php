@@ -13,17 +13,17 @@ use Illuminate\Http\Request;
 
 class ShiftProblemController extends ResourceController
 {
-    protected array $withRelations = ['spots'];
+    // protected array $withRelations = ['spots'];
 
-    public function index(Request $request)
-    {
-        $this->generateNew($request);
-    }
+    // public function index(Request $request)
+    // {
+    //     $this->generateNew($request);
+    // }
 
     public function generateNew(Request $request)
     {
-        $startDate = $request->input('start_date_time');
-        $endDate = $request->input('end_date_time');
+        $startDate = Carbon::createFromFormat('Y-m-d H:i', $request->input('start_date_time'));
+        $endDate = Carbon::createFromFormat('Y-m-d H:i', $request->input('end_date_time'));
 
         $shiftProblem = new ShiftProblem(['start_date_time' => $startDate, 'end_date_time' => $endDate]);
 
@@ -35,27 +35,30 @@ class ShiftProblemController extends ResourceController
 
         $spots = [];
 
-        foreach ($places as $place) {
-            foreach ($place->skills as $skill) {
-                foreach ($place->shifts as $shift) {
-                    $neededEmployees = $skill->pivot->needed_employees;
-                    while($neededEmployees-- > 0) {
-                        $spots[] = $shiftProblem->spots()->create([
-                            'shift_id' => $shift->id,
-                            'place_id' => $place->id,
-                            'skill_id' => $skill->id,
-                            'start_date_time' => $startDate,
-                            'end_date_time' => $endDate,
-                        ]);
+        while ($startDate <= $endDate) {
+            foreach ($places as $place) {
+                foreach ($place->skills as $skill) {
+                    foreach ($place->shifts as $shift) {
+                        /** @var Carbon $startDate */
+                        $neededEmployees = $skill->pivot->needed_employees;
+                        while ($neededEmployees-- > 0) {
+                            $spots[] = $shiftProblem->spots()->create([
+                                'shift_id' => $shift->id,
+                                'place_id' => $place->id,
+                                'skill_id' => $skill->id,
+                                'start_date_time' => $startDate->format('Y-m-d') . ' ' . $shift->starts_at,
+                                'end_date_time' => $startDate->format('Y-m-d') . ' ' . $shift->ends_at,
+                            ]);
+                        }
                     }
                 }
             }
+            $startDate = $startDate->addDay();
         }
 
         $shiftProblem->all_employees = $employees->pluck('id')->toJson();
         $shiftProblem->all_places = $places->pluck('id')->toJson();
 
         $shiftProblem->save();
-        // var_dump($employees->count());
     }
 }

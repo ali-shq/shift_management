@@ -39,7 +39,7 @@ class Employee extends SkilledEntity
         return $this->hasMany(Employment::class);
     }
 
-    public function scopeGetActive(Builder $query, $startDate, $endDate = null): void
+    public function scopeGetActive(Builder $query, $startDate, $endDate): void
     {
         $query->whereIsActive(true)->whereHas('employments', fn($e) => $e->active($startDate, $endDate));
     }
