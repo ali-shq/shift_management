@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shift_problems', function (Blueprint $table) {
             $table->id();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->dateTime('start_date_time');
             $table->dateTime('end_date_time');
             $table->json('all_places')->default('{}');
