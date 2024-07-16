@@ -2,6 +2,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -20,6 +21,9 @@ export default {
                 fontColorSecondary: "#01C58E",
                 fontColorThird: "#2F495E"
             },
+            backgroundImage: theme => ({
+                'custom-image': "url('assets/lines.webp')",
+              }),
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 body: [
