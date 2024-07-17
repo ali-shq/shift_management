@@ -1,9 +1,9 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import NavigationDrawer from '@/Components/NavigationDrawer.vue';
+import NavigationDrawer from "@/Components/NavigationDrawer.vue";
 
 import { Head, Link } from "@inertiajs/vue3";
-import { ref} from 'vue'
+import { ref } from "vue";
 import HeroSection from "./Guest-Pages/HeroSection.vue";
 defineProps({
     canLogin: Boolean,
@@ -12,7 +12,7 @@ defineProps({
     phpVersion: String,
 });
 let drawerOpen = ref(false);
-function toggleDrawer(){
+function toggleDrawer() {
     drawerOpen.value = !drawerOpen.value;
 }
 </script>
@@ -21,7 +21,7 @@ function toggleDrawer(){
     <Head title="ShiftFacile - Easy Scheduling, Happy Team" />
 
     <div class="bg-gray-100">
-        <div >
+        <div>
             <nav class="fixed w-full border-b border-gray-100 bg-white">
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -72,9 +72,17 @@ function toggleDrawer(){
                             </div>
 
                             <div>
-    <NavigationDrawer :isOpen="drawerOpen" @toggle-drawer="toggleDrawer" />
-    <button @click="toggleDrawer" class="p-4 bg-blue-500 text-white">Toggle Drawer</button>
-  </div>
+                                <NavigationDrawer
+                                    :isOpen="drawerOpen"
+                                    @toggle-drawer="toggleDrawer"
+                                />
+                                <!-- <button
+                                    @click="toggleDrawer"
+                                    class="bg-blue-500 p-4 text-white"
+                                >
+                                    Toggle Drawer
+                                </button> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +90,7 @@ function toggleDrawer(){
         </div>
         <!-- hero section -->
 
-        <div > <HeroSection /></div>
+        <div><HeroSection /></div>
     </div>
 
     <!-- <div

@@ -15,9 +15,9 @@ export default {
 };
 </script>
 <template>
-     <button @click="toggleDrawer" class="p-2" >
+     <button @click="toggleDrawer" class="pt-5 pl-4" >
       <!-- Icon for the menu (you can replace it with any icon you prefer) -->
-      <svg v-if="!isDrawerOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+      <svg v-if="!isOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
       </svg>
       <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
