@@ -25,8 +25,8 @@ function toggleDrawer() {
             <nav class="fixed w-full border-b border-gray-100 bg-white">
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex h-16 justify-between">
-                        <div class="flex">
+                    <div class="flex h-16 justify-between items-center">
+                        <div class="flex ">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link>
@@ -35,9 +35,10 @@ function toggleDrawer() {
                             </div>
 
                             <!-- Navigation Links -->
-                            <div
+                             <div class="flex items-center space-x-4">
+                                <div
                                 v-if="canLogin"
-                                class="z-10 p-6 text-right sm:fixed sm:right-0 sm:top-0"
+                                class="hidden md:block p-6 text-right"
                             >
                                 <Link
                                     v-if="$page.props.auth.user"
@@ -58,7 +59,7 @@ function toggleDrawer() {
                                     </button> -->
                                     <Link
                                         :href="route('login')"
-                                        class="rounded p-2 font-semibold text-gray-600 outline hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-fontColorPrimary dark:text-fontColorPrimary dark:hover:text-fontColorSecondary"
+                                        class=" hidden md:inline-block rounded p-2 font-semibold text-gray-600 outline hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-fontColorPrimary dark:text-fontColorPrimary dark:hover:text-fontColorSecondary"
                                         >Log in</Link
                                     >
 
@@ -70,9 +71,12 @@ function toggleDrawer() {
                                     > -->
                                 </template>
                             </div>
+                             </div>
+                         
 
-                            <div>
+                         
                                 <NavigationDrawer
+                            
                                     :isOpen="drawerOpen"
                                     @toggle-drawer="toggleDrawer"
                                 />
@@ -82,7 +86,7 @@ function toggleDrawer() {
                                 >
                                     Toggle Drawer
                                 </button> -->
-                            </div>
+                        
                         </div>
                     </div>
                 </div>
