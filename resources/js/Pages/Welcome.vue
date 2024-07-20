@@ -33,7 +33,12 @@ function toggleDrawer() {
                                     <ApplicationLogo class="block h-9 w-auto" />
                                 </Link>
                             </div>
-
+                            <div class="hidden md:flex md:items-center md:space-x-4">
+                    <a href="#" class="text-gray-700 hover:text-gray-900">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-gray-900">About</a>
+                    <a href="#services" class="text-gray-700 hover:text-gray-900">Services</a>
+                    <a href="#contact" class="text-gray-700 hover:text-gray-900">Contact</a>
+                </div>
                             <!-- Navigation Links -->
                             <div class="flex items-center space-x-4">
                                 <div
