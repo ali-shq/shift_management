@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/vue3";
 </script>
 <template>
     <!-- hero section goes here -->
-    <section class="bg-grey-300 dark:bg-white-900 h-screen">
+    <section class="bg-custom-image bg-cover bg-center  h-screen">
         <div
             class="mx-auto grid h-full max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0"
         >
