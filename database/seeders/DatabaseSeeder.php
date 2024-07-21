@@ -34,13 +34,29 @@ class DatabaseSeeder extends Seeder
         $shifts = Shift::orderBy('id')->get();
         $employees = Employee::factory(700)->has(Employment::factory())->create();    
 
+        $places = Place::factory(8)->create();
+
         foreach ($employees as $employee) {
             $employee->skills()->attach($skills->random(1)->first()->id);
-            if (7 == rand(1,10))            
+            if (7 == rand(1,10)) {
                 $employee->skills()->attach($skills->random(1)->last()->id);
+            }
+
+            $isAvailable = true;
+            //TODO finish the seed part about preferences and availability
+
+            foreach($shifts as $shift) {
+                foreach($places as $place) {
+                    $employee->availability()->create([
+                        'shift_id' => $shift->id,
+                        'place_id' => $place->id,
+                        'is_availabile' => $isAvailable
+                    ]);
+                }
+            }
+
         }
 
-        $places = Place::factory(8)->create();
 
         foreach ($places as $place) {
             foreach ($shifts as $shift) {

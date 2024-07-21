@@ -21,17 +21,32 @@ class Employee extends SkilledEntity
 
     public function fixedAvailability(Spot $spot): bool
     {
+        foreach ($this->employments as $employment) {
+
+        }
+        //TODO use the employment
         return true;
     }
 
     public function updateAvailability(Spot $changingSpot, bool $isPlacement = true)
     {
-        
+        //if we placed the employee it will be unavailable for the other spots, so placement is more what we are
+        //looking at, but we may keep it separately for the snowball effect
     }
 
     public function skills(): BelongsToMany 
     {
         return $this->belongsToMany(Skill::class);
+    }
+
+    public function preferences(): HasMany 
+    {
+        return $this->hasMany(EmployeePreference::class);
+    }
+
+    public function availability(): HasMany 
+    {
+        return $this->hasMany(EmployeeAvailability::class);
     }
 
     public function employments(): HasMany 
