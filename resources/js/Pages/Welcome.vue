@@ -38,22 +38,22 @@ function toggleDrawer() {
                         >
                             <a
                                 href="#"
-                                class="text-gray-700 hover:text-gray-900"
+                                class="nav-link active-link text-gray-700 hover:text-gray-900"
                                 >Home</a
                             >
                             <a
                                 href="#about"
-                                class="text-gray-700 hover:text-gray-900"
+                                class="nav-link text-gray-700 hover:text-gray-900"
                                 >About</a
                             >
                             <a
                                 href="#services"
-                                class="text-gray-700 hover:text-gray-900"
+                                class="nav-link text-gray-700 hover:text-gray-900"
                                 >Services</a
                             >
                             <a
                                 href="#contact"
-                                class="text-gray-700 hover:text-gray-900"
+                                class="nav-link text-gray-700 hover:text-gray-900"
                                 >Contact</a
                             >
                         </div>
@@ -95,4 +95,7 @@ function toggleDrawer() {
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.nav-link {
+  transition: color 0.3s;
+}</style>
