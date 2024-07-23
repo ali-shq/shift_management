@@ -11,7 +11,19 @@ defineProps({
     laravelVersion: String,
     phpVersion: String,
 });
+const links = ref([
+    { name: "Home", href: "#", active: true },
+    { name: "About", href: "#about", active: false },
+    { name: "Services", href: "#services", active: false },
+    { name: "Contact", href: "#contact", active: false },
+]);
 let drawerOpen = ref(false);
+
+function setActiveLink(selectedLink) {
+      links.value.forEach(link => {
+        link.active = (link === selectedLink);
+      });
+    }
 function toggleDrawer() {
     drawerOpen.value = !drawerOpen.value;
 }
@@ -37,25 +49,20 @@ function toggleDrawer() {
                             class="ml-auto hidden md:flex md:items-center md:space-x-4"
                         >
                             <a
-                                href="#"
-                                class="nav-link active-link text-gray-700 hover:text-gray-900"
-                                >Home</a
+                                v-for="link in links"
+                                :key="link.name"
+                                :href="link.href"
+                                :class="[
+                                    'nav-link',
+                                    link.active
+                                        ? 'text-fontColorPrimary focus:outline-none focus:border-fontColorPrimary'
+                                        : 'text-gray-700',
+                                    'hover:text-gray-900',
+                                ]"
+                                @click="setActiveLink(link)"
                             >
-                            <a
-                                href="#about"
-                                class="nav-link text-gray-700 hover:text-gray-900"
-                                >About</a
-                            >
-                            <a
-                                href="#services"
-                                class="nav-link text-gray-700 hover:text-gray-900"
-                                >Services</a
-                            >
-                            <a
-                                href="#contact"
-                                class="nav-link text-gray-700 hover:text-gray-900"
-                                >Contact</a
-                            >
+                                {{ link.name }}
+                            </a>
                         </div>
 
                         <!-- Navigation Links -->
@@ -97,5 +104,6 @@ function toggleDrawer() {
 
 <style scoped>
 .nav-link {
-  transition: color 0.3s;
-}</style>
+    transition: color 0.3s;
+}
+</style>
