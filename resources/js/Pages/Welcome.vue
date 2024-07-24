@@ -55,7 +55,7 @@ function toggleDrawer() {
                                 :class="[
                                     'nav-link',
                                     link.active
-                                        ? 'text-fontColorPrimary focus:outline-none focus:border-fontColorPrimary'
+                                        ? 'text-fontColorPrimary focus:outline-none focus:border-fontColorPrimary transition duration-150 ease-in-out'
                                         : 'text-gray-700',
                                     'hover:text-gray-900',
                                 ]"
@@ -81,7 +81,7 @@ function toggleDrawer() {
                                 <template v-else>
                                     <Link
                                         :href="route('login')"
-                                        class="hidden rounded p-2 font-semibold text-gray-600 outline hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-fontColorPrimary md:inline-block dark:text-fontColorPrimary dark:hover:text-fontColorSecondary"
+                                        class="hidden animate-shake-slow-repeat mb-3 md:inline-flex items-center justify-center rounded-lg bg-fontColorPrimary bg-gradient-to-r from-fontColorPrimary to-fontColorSecondary px-5 py-3 text-center text-base font-medium text-white hover:bg-fontColorSecondary focus:ring-4 focus:ring-primary-300 sm:mb-0 sm:mr-3 dark:focus:ring-fontColorPrimary"
                                         >Log in</Link
                                     >
                                 </template>
