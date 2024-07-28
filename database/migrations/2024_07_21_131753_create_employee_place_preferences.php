@@ -2,8 +2,6 @@
 
 use App\Models\Employee;
 use App\Models\Place;
-use App\Models\Shift;
-use App\Models\Skill;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,12 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_preferences', function (Blueprint $table) {
+        Schema::create('employee_place_preferences', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class);
-            $table->foreignIdFor(Place::class)->nullable();
-            $table->foreignIdFor(Shift::class)->nullable();
-            $table->foreignIdFor(Skill::class)->nullable();
+            $table->foreignIdFor(Place::class);
             $table->integer('preference');
             $table->timestamps();
             $table->softDeletes();
