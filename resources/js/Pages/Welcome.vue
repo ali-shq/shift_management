@@ -56,8 +56,8 @@ function toggleDrawer() {
                                     'nav-link',
                                     link.active
                                         ? 'text-fontColorPrimary focus:outline-none focus:border-fontColorPrimary transition duration-150 ease-in-out'
-                                        : 'text-gray-700',
-                                    'hover:text-gray-900',
+                                        : 'text-gray-700'
+                                    
                                 ]"
                                 @click="setActiveLink(link)"
                             >
