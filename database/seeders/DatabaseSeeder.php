@@ -42,18 +42,30 @@ class DatabaseSeeder extends Seeder
                 $employee->skills()->attach($skills->random(1)->last()->id);
             }
 
-            $isAvailable = true;
-            //TODO finish the seed part about preferences and availability
-
             foreach($shifts as $shift) {
-                foreach($places as $place) {
-                    $employee->availability()->create([
-                        'shift_id' => $shift->id,
-                        'place_id' => $place->id,
-                        'is_availabile' => $isAvailable
-                    ]);
-                }
+                $employee->availability()->create([
+                    'shift_id' => $shift->id,
+                    'is_available' => rand(1, 10) != 10
+                ]);
+
+                $employee->preferences()->create([
+                    'shift_id' => $shift->id,
+                    'preference' => rand(0, 30)
+                ]);
             }
+
+            foreach($places as $place) {
+                $employee->availability()->create([
+                    'place_id' => $place->id,
+                    'is_available' => rand(1, 10) != 10
+                ]);
+
+                $employee->preferences()->create([
+                    'place_id' => $place->id,
+                    'preference' => rand(0, 30)
+                ]);
+            }
+
 
         }
 
