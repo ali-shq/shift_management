@@ -1,6 +1,6 @@
 <!-- src/components/NavigationDrawer.vue -->
 <template>
-    <div>
+    <div ref="el">
         <!-- Mobile Menu Icon -->
         <div class="block p-4 md:hidden">
             <svg
@@ -23,6 +23,7 @@
         <!-- Navigation Drawer -->
         <div
             v-show="isOpen"
+            ref="drawer"
             class="fixed inset-0 z-50 transform bg-gray-800 bg-opacity-75 transition-transform duration-300 ease-in-out"
             @click.self="toggleDrawer"
         >
@@ -63,39 +64,38 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            isOpen: false,
-        };
-    },
-    methods: {
-        toggleDrawer() {
-            this.isOpen = !this.isOpen;
-            if (this.isOpen) {
-                document.addEventListener("click", this.handleClickOutside);
-            } else {
-                document.removeEventListener("click", this.handleClickOutside);
-            }
-        },
-        handleClickOutside(event) {
-            const drawer = this.$refs.drawer;
-            if (drawer && !drawer.contains(event.target)) {
-                this.isOpen = false;
-                document.removeEventListener("click", this.handleClickOutside);
-            }
-        },
-    },
-    mounted() {
-        document.addEventListener("click", (event) => {
-            if (!this.$el.contains(event.target)) {
-                this.isOpen = false;
+<script setup>
+import { ref , onMounted, onBeforeUnmount} from "vue";
+
+let isOpen = ref(false);
+function toggleDrawer() {
+    isOpen.value = !isOpen.value;
+    if (isOpen.value) {
+        document.addEventListener("click", handleClickOutside);
+    } else {
+        document.removeEventListener("click", handleClickOutside);
+    }
+}
+
+function handleClickOutside(event) {
+    console.log(event,'event')
+
+    const drawer = isOpen.value;
+    if (drawer && !drawer.contains(event.target)) {
+        isOpen.value = false;
+        document.removeEventListener("click", handleClickOutside);
+    }
+}
+
+onMounted(() => {
+    document.addEventListener("click", (event) => {
+            if (!el.value.contains(event.target)) {
+                isOpen.value = false;
             }
         });
-    },
-    beforeUnmount() {
-        document.removeEventListener("click", this.handleClickOutside);
-    },
-};
+})
+
+onBeforeUnmount(() =>{
+    document.removeEventListener("click", handleClickOutside);
+})
 </script>
