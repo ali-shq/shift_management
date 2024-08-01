@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref , onMounted, onBeforeUnmount} from "vue";
+import { ref , onBeforeUnmount} from "vue";
 
 let isOpen = ref(false);
 function toggleDrawer() {
@@ -78,22 +78,13 @@ function toggleDrawer() {
 }
 
 function handleClickOutside(event) {
-    console.log(event,'event')
 
-    const drawer = isOpen.value;
+    const drawer = document.getElementById('drawer');
     if (drawer && !drawer.contains(event.target)) {
         isOpen.value = false;
         document.removeEventListener("click", handleClickOutside);
     }
 }
-
-onMounted(() => {
-    document.addEventListener("click", (event) => {
-            if (!el.value.contains(event.target)) {
-                isOpen.value = false;
-            }
-        });
-})
 
 onBeforeUnmount(() =>{
     document.removeEventListener("click", handleClickOutside);
