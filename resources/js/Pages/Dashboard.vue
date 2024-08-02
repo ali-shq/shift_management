@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Components/Welcome.vue";
+import Chat from "@/Components/Chat.vue";
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import Welcome from "@/Components/Welcome.vue";
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 Dashboard
             </h2>
+            <Chat/>
         </template>
 
         <div class="py-12">

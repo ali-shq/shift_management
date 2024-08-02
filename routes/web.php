@@ -11,6 +11,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SpotController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 use Inertia\Inertia;
 
 /*
@@ -61,4 +62,6 @@ Route::middleware([
 
 Route::get('posts/{topic?}', [PostController::class, 'index'])->name('posts.index');
 Route::get('posts/{post}/{slug}', [PostController::class, 'show'])->name('posts.show');
-    
+Route::get('/chat', [ChatController::class, 'index']);
+Route::get('/messages', [ChatController::class, 'messages']);
+Route::post('/messages', [ChatController::class, 'sendMessage']);

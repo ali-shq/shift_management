@@ -1,7 +1,6 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import NavigationDrawer from "@/Components/NavigationDrawer.vue";
-
 import { Head, Link } from "@inertiajs/vue3";
 import { ref } from "vue";
 import HeroSection from "./Guest-Pages/HeroSection.vue";
