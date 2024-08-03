@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Employee;
-use App\Models\Place;
+use App\Models\Shift;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('employee_shift_preferences', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class);
-            $table->foreignIdFor(Place::class);
+            $table->foreignIdFor(Shift::class);
             $table->integer('preference');
             $table->timestamps();
             $table->softDeletes();

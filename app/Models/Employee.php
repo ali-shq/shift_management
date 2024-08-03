@@ -39,14 +39,25 @@ class Employee extends SkilledEntity
         return $this->belongsToMany(Skill::class);
     }
 
-    public function preferences(): HasMany 
+    public function shiftPreferences(): HasMany 
     {
-        return $this->hasMany(EmployeePreference::class);
+        return $this->hasMany(EmployeeShiftPreference::class);
     }
 
-    public function availability(): HasMany 
+    public function placePreferences(): HasMany 
     {
-        return $this->hasMany(EmployeeAvailability::class);
+        return $this->hasMany(EmployeePlacePreference::class);
+    }
+
+
+    public function shiftAvailability(): HasMany 
+    {
+        return $this->hasMany(EmployeeShiftAvailability::class);
+    }
+
+    public function placeAvailability(): HasMany 
+    {
+        return $this->hasMany(EmployeePlaceAvailability::class);
     }
 
     public function employments(): HasMany 
