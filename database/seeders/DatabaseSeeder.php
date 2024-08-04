@@ -37,33 +37,23 @@ class DatabaseSeeder extends Seeder
         $places = Place::factory(8)->create();
 
         foreach ($employees as $employee) {
-            $employee->skills()->attach($skills->random(1)->first()->id);
+            $employee->skills()->attach($skills->random(1)->first()->id, ['preference' => rand(0, 30)]);
             if (7 == rand(1,10)) {
-                $employee->skills()->attach($skills->random(1)->last()->id);
+                $employee->skills()->attach($skills->random(1)->last()->id, ['preference' => rand(0, 30)]);
             }
 
             foreach($shifts as $shift) {
-                $employee->shiftAvailability()->create([
-                    'shift_id' => $shift->id,
-                    'is_available' => rand(1, 20) != 10
-                ]);
-
-                $employee->shiftPreferences()->create([
-                    'shift_id' => $shift->id,
-                    'preference' => rand(0, 30)
-                ]);
+                if (rand(1, 20) == 10) {
+                    continue;
+                }
+                $employee->shifts()->attach($shift->id, ['preference' => rand(0, 30)]);
             }
 
             foreach($places as $place) {
-                $employee->placeAvailability()->create([
-                    'place_id' => $place->id,
-                    'is_available' => rand(1, 20) != 10
-                ]);
-
-                $employee->placePreferences()->create([
-                    'place_id' => $place->id,
-                    'preference' => rand(0, 30)
-                ]);
+                if (rand(1, 20) == 10) {
+                    continue;
+                }
+                $employee->places()->attach($place->id, ['preference' => rand(0, 30)]);
             }
 
 

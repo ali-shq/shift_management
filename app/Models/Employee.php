@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\ShiftProblem\SkilledEntity;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,28 +37,17 @@ class Employee extends SkilledEntity
 
     public function skills(): BelongsToMany 
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(Skill::class)->withPivot(['preference']);
     }
 
-    public function shiftPreferences(): HasMany 
+    public function shifts(): BelongsToMany 
     {
-        return $this->hasMany(EmployeeShiftPreference::class);
+        return $this->belongsToMany(Shift::class)->withPivot(['preference']);
     }
 
-    public function placePreferences(): HasMany 
+    public function places(): BelongsToMany 
     {
-        return $this->hasMany(EmployeePlacePreference::class);
-    }
-
-
-    public function shiftAvailability(): HasMany 
-    {
-        return $this->hasMany(EmployeeShiftAvailability::class);
-    }
-
-    public function placeAvailability(): HasMany 
-    {
-        return $this->hasMany(EmployeePlaceAvailability::class);
+        return $this->belongsToMany(Place::class)->withPivot(['preference']);
     }
 
     public function employments(): HasMany 
@@ -69,4 +59,10 @@ class Employee extends SkilledEntity
     {
         $query->whereIsActive(true)->whereHas('employments', fn($e) => $e->active($startDate, $endDate));
     }
+
+    public function scopeIdIn(Builder $query, array $ids): void
+    {
+        $query->whereIn('id', $ids);
+    }
+
 }
