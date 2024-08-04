@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_shift_availability', function (Blueprint $table) {
+        Schema::create('employee_shift_availabilities', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class);
             $table->foreignIdFor(Shift::class);

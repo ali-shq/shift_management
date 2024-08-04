@@ -19,7 +19,7 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $fname = $this->faker->firstName($gender = ['male', 'female'][array_rand(['male', 'female'])]),
+            'name' => $fname = $this->faker->firstName($gender = ['male', 'female'][array_rand(['', ''])]),
             'surname' => $sname = $this->faker->lastName(),
             'email' => strtolower("$fname.$sname@example.com"),
             'phone' => $this->faker->unique()->phoneNumber(),

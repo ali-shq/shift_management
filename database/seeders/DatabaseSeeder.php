@@ -43,24 +43,24 @@ class DatabaseSeeder extends Seeder
             }
 
             foreach($shifts as $shift) {
-                $employee->availability()->create([
+                $employee->shiftAvailability()->create([
                     'shift_id' => $shift->id,
-                    'is_available' => rand(1, 10) != 10
+                    'is_available' => rand(1, 20) != 10
                 ]);
 
-                $employee->preferences()->create([
+                $employee->shiftPreferences()->create([
                     'shift_id' => $shift->id,
                     'preference' => rand(0, 30)
                 ]);
             }
 
             foreach($places as $place) {
-                $employee->availability()->create([
+                $employee->placeAvailability()->create([
                     'place_id' => $place->id,
-                    'is_available' => rand(1, 10) != 10
+                    'is_available' => rand(1, 20) != 10
                 ]);
 
-                $employee->preferences()->create([
+                $employee->placePreferences()->create([
                     'place_id' => $place->id,
                     'preference' => rand(0, 30)
                 ]);
@@ -89,15 +89,26 @@ class DatabaseSeeder extends Seeder
             ->recycle([$users, $topics])
             ->create();
 
-        $luke = User::factory()
+        $ali = User::factory()
             ->has(Post::factory(45)->recycle($topics)->withFixture())
             ->has(Comment::factory(120)->recycle($posts))
             ->has(Like::factory()->forEachSequence(
                 ...$posts->random(100)->map(fn (Post $post) => ['likeable_id' => $post]),
             ))
             ->create([
-                'name' => 'Luke Downing',
+                'name' => 'Kledis Ali',
                 'email' => 'test@example.com',
+            ]);
+
+        $hh_ali = User::factory()
+            ->has(Post::factory(45)->recycle($topics)->withFixture())
+            ->has(Comment::factory(120)->recycle($posts))
+            ->has(Like::factory()->forEachSequence(
+                ...$posts->random(100)->map(fn (Post $post) => ['likeable_id' => $post]),
+            ))
+            ->create([
+                'name' => 'HHysa Ali',
+                'email' => 'h02@gmail.com',
             ]);
     }
 }
