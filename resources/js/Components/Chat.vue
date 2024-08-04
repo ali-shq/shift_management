@@ -48,7 +48,7 @@
     methods: {
       fetchMessages() {
         axios.get('/messages').then(response => {
-          this.messages = response.data;
+          this.messages = response.data.sort((a, b) => a.created_at - b.created_at).reverse();
         });
       },
       sendMessage() {
