@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Employee::class);
             $table->foreignIdFor(Skill::class);
+            $table->integer('preference')->default(0);
             $table->timestamps();
         });
     }

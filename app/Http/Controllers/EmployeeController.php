@@ -11,5 +11,5 @@ class EmployeeController extends ResourceController
         'gender' => 'required|in:male,female'
     ];
 
-    protected array $withRelations = ['skills', 'employments'];
+    protected array $withRelations = ['skills', 'places', 'shifts', 'employments'];
 }

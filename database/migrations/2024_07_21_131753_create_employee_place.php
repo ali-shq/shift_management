@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_place_availabilities', function (Blueprint $table) {
+        Schema::create('employee_place', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class);
             $table->foreignIdFor(Place::class);
-            $table->boolean('is_available')->default(true);
+            $table->integer('preference')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

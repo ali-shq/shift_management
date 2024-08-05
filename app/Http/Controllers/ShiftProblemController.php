@@ -33,7 +33,20 @@ class ShiftProblemController extends ResourceController
 
         $places = Place::with(['shifts', 'skills'])->whereIsActive(true)->get();
 
+        $shiftProblem->all_employees = $employees->pluck('id')->toArray();
+        $shiftProblem->all_places = $places->pluck('id')->toArray();
+
+        $shiftProblem->save();
+    }
+
+    protected function generateSpots(ShiftProblem $shiftProblem) 
+    {
         $spots = [];
+
+        $startDate = $shiftProblem->start_date_time;
+        $endDate = $shiftProblem->end_date_time;
+
+        $places = Place::idIn($shiftProblem->all_places);
 
         while ($startDate <= $endDate) {
             foreach ($places as $place) {
@@ -56,9 +69,11 @@ class ShiftProblemController extends ResourceController
             $startDate = $startDate->addDay();
         }
 
-        $shiftProblem->all_employees = $employees->pluck('id')->toJson();
-        $shiftProblem->all_places = $places->pluck('id')->toJson();
+        return $spots;
+    }
 
-        $shiftProblem->save();
+    public function solve(ShiftProblem $shiftProblem) 
+    {
+        $allEmployees = Employee::with(['skills', 'shifts', 'places'])->idIn($shiftProblem->all_employees)->get();
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Skill extends BaseModel
 {
     use HasFactory;
+    
     protected $searchFields = ['name', 'description'];
 
     public function employees(): BelongsToMany 

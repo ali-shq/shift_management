@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('end_date_time');
             $table->json('all_places')->default('{}');
             $table->json('all_employees')->default('{}');
+            $table->boolean('solved')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
