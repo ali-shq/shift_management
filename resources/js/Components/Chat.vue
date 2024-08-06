@@ -4,9 +4,12 @@
             <div
                 v-for="message in messages"
                 :key="message.id"
-                class="col-md-8 offset-md-2 leading-1.5 w-full max-w-[320px] rounded-e-xl rounded-es-xl border-gray-200 bg-gray-100 p-4 dark:bg-gray-700"
+                :class="message.user.id === $page.props.auth.user.id ? 'ml-auto bg-blue-100 dark:bg-fontColorPrimary text-right' : 'mr-auto bg-gray-100 dark:bg-gray-700 text-left'"
+                class="leading-1.5 w-full max-w-[320px] rounded-e-xl rounded-es-xl border-gray-200 p-4 my-2"
             >
-                <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <div
+                    class="flex items-center space-x-2 rtl:space-x-reverse"
+                >
                     <span
                         class="text-sm font-semibold text-gray-900 dark:text-white"
                         >{{ message.user.name }}</span
@@ -26,6 +29,7 @@
                     >Delivered</span
                 >
             </div>
+        
             <button
                 id="dropdownMenuIconButton"
                 data-dropdown-toggle="dropdownDots"
@@ -124,6 +128,20 @@
                 </div>
             </div>
         </div> -->
+        <div class="card-footer">
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="newMessage"
+                            @keyup.enter="sendMessage"
+                        />
+                        <button
+                            class="btn btn-primary mt-2"
+                            @click="sendMessage"
+                        >
+                            Send
+                        </button>
+                    </div>
     </div>
 </template>
 
