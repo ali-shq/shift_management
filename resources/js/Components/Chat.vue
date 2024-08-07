@@ -16,7 +16,7 @@
                     >
                     <span
                         class="text-sm font-normal text-gray-500 dark:text-gray-400"
-                        >{{ message.user.created_at }}</span
+                        >{{ formatDatehere(message.user.created_at) }}</span
                     >
                 </div>
                 <p
@@ -28,9 +28,7 @@
                     class="text-sm font-normal text-gray-500 dark:text-gray-400"
                     >Delivered</span
                 >
-            </div>
-        
-            <button
+                <button
                 id="dropdownMenuIconButton"
                 data-dropdown-toggle="dropdownDots"
                 data-dropdown-placement="bottom-start"
@@ -94,6 +92,9 @@
                     </li>
                 </ul>
             </div>
+            </div>
+        
+           
         </div>
 
         <!-- <div class="row">
@@ -145,7 +146,8 @@
     </div>
 </template>
 
-<script>
+<script >
+import { formatDate, relativeDate } from '@/Utilities/date';
 export default {
     data() {
         return {
@@ -170,6 +172,10 @@ export default {
             });
     },
     methods: {
+        formatDatehere(date){
+           
+           return relativeDate(date)
+        },
         fetchMessages() {
             axios.get("/messages").then((response) => {
                 this.messages = response.data
