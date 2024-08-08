@@ -174,7 +174,7 @@ export default {
     methods: {
         formatDatehere(date){
            
-           return relativeDate(date)
+           return formatDate(date)
         },
         fetchMessages() {
             axios.get("/messages").then((response) => {
